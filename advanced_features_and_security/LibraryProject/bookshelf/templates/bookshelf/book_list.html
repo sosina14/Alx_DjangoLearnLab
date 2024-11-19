@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}"> <!-- Optional -->
+</head>
+<body>
+    <h1>Library Book List</h1>
+
+    <!-- If there are no books, display a message -->
+    {% if books %}
+        <ul>
+            {% for book in books %}
+                <li>
+                    <strong>{{ book.title }}</strong> by {{ book.author }}<br>
+                    Published on: {{ book.published_date|date:"F j, Y" }}<br>
+                    ISBN: {{ book.isbn }}<br>
+                    <a href="{% url 'book_detail' book.id %}">View Details</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No books available in the library.</p>
+    {% endif %}
+
+    <a href="{% url 'add_book' %}">Add a New Book</a> <!-- Example link -->
+</body>
+</html>
