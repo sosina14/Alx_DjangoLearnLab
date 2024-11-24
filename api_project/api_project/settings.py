@@ -124,8 +124,17 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+<<<<<<< HEAD
 ["rest_framework.authtoken"]
 
 ["rest_framework.authentication.TokenAuthentication"]
 ["rest_framework.permissions.IsAuthenticated"]
 ["rest_framework.permissions.IsAuthenticated"]
+=======
+
+["rest_framework.authtoken"]
+
+["rest_framework.authentication.TokenAuthentication"]
+
+["rest_framework.permissions.IsAuthenticated"]
+>>>>>>> 9996a8566ccdc4986ce40dff192f4d8a9a8a8855
