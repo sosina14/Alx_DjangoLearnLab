@@ -1,0 +1,6 @@
+<h1>Search Results for "{{ query }}"</h1>
+<ul>
+    {% for post in results %}
+        <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+    {% endfor %}
+</ul>

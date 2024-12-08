@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>By {{ post.author }}</p>
+    <p>{{ post.content }}</p>
+    {% if user == post.author %}
+        <a href="{% url 'post-update' post.id %}">Edit</a>
+        <a href="{% url 'post-delete' post.id %}">Delete</a>
+        <form method="GET" action="{% url 'search_posts' %}">
+            <input type="text" name="q" placeholder="Search..." value="{{ request.GET.q }}">
+            <button type="submit">Search</button>
+        </form>
+        
+    {% endif %}
+{% endblock %}
