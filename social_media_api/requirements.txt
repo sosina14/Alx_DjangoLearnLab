@@ -1,0 +1,5 @@
+Django
+DjangoRESTframework
+DjangoRestFrameworkAuthtoken
+SQLite 
+Python3.12.5

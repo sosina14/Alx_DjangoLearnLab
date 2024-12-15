@@ -1,30 +1,34 @@
-from rest_framework.authtoken.models import Token
 from rest_framework import serializers
-from .models import CustomUser
+# from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-from rest_framework import serializers
+from rest_framework.authtoken.models import Token
+from.models import CustomUser
 
-User = get_user_model()  # Get the custom user model
 
-class UserRegistrationSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+User = get_user_model()  # Get the custom or default User model
+class RegisterSerializer(serializers.ModelSerializer):
+    username = serializers.CharField()    
+    password = serializers.CharField(write_only=True, required=True)
+    confirm_password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password']
-    
+        model = CustomUser
+        fields = ['username', 'email', 'password', 'confirm_password','bio', 'profile_picture']
+        
+
+
     def create(self, validated_data):
-        # Create a new user
-        user = User.objects.create_user(
+        user = get_user_model().objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
-            password=validated_data['password']
+            password=validated_data['password'],
+            bio = validated_data.get('bio', ''),
+            profile_picture = validated_data.get('profile_picture', None)
         )
-        # Create a token for the user
-        Token.objects.create(user=user)
+        Token.objects.create(user=user)  # Automatically create a token for the new user
         return user
-
-class UserLoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
-    password = serializers.CharField(write_only=True)
-
+    
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'email', 'bio', 'profile_picture']
